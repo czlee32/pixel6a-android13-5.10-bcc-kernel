@@ -1,0 +1,45 @@
+function update_kprobes_config() {
+    ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
+       -d CONFIG_LTO \
+       -d CONFIG_LTO_CLANG \
+       -d CONFIG_CFI \
+       -d CONFIG_CFI_PERMISSIVE \
+       -d CONFIG_CFI_CLANG \
+       -e CONFIG_IRQSOFF_TRACER \
+       -e CONFIG_PREEMPT_TRACER \
+       -e CONFIG_DEBUG_FS \
+       -e CONFIG_CHECKPOINT_RESTORE \
+       -d CONFIG_RANDOMIZE_BASE \
+       -e CONFIG_BPF \
+       -e CONFIG_BPF_SYSCALL \
+       -e CONFIG_BPF_JIT \
+       -e CONFIG_HAVE_EBPF_JIT \
+       -e CONFIG_IKHEADERS \
+       -e CONFIG_HAVE_KPROBES \
+       -e CONFIG_KPROBES \
+       -e CONFIG_KPROBE_EVENT \
+       -e CONFIG_UPROBES \
+       -e CONFIG_UPROBE_EVENT \
+       -e CONFIG_BPF_EVENTS \
+       -e CONFIG_KRETPROBES \
+       -e CONFIG_HAVE_KRETPROBES \
+       -d CONFIG_SHADOW_CALL_STACK \
+       -e CONFIG_ROP_PROTECTION_NONE \
+       -e CONFIG_NET_CLS_BPF \
+       -e CONFIG_NET_ACT_BPF \
+       -e CONFIG_NET_SCH_SFQ \
+       -e CONFIG_NET_ACT_POLICE \
+       -e CONFIG_NET_ACT_GACT \
+       -e CONFIG_DUMMY \
+       -e CONFIG_FTRACE_SYSCALLS \
+       -e CONFIG_FUNCTION_TRACER \
+       -e CONFIG_FUNCTION_PROFILER \
+       -e CONFIG_HAVE_DYNAMIC_FTRACE \
+       -e CONFIG_DYNAMIC_FTRACE \
+       -e CONFIG_DEBUG_PREEMPT \
+       -e CONFIG_PREEMPTIRQ_EVENTS \
+       -d CONFIG_PROVE_LOCKING \
+       -d CONFIG_LOCKDEP
+    (cd ${OUT_DIR} && \
+     make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
+}
